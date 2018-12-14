@@ -27,22 +27,26 @@ class Trajectories:
         plt.show()
 
     def generate_kernel(self,index, show = False):
+        # This method generates a PSF according
+        # to given index of trajectory.
+        # Notice: PSF == kernel
         x, y = self.get_trajectory(index)
-        kernel_size = 9
+        kernel_size = 9 # set to 9
         center_shift = (kernel_size-1)/2
         kernel = np.zeros((kernel_size,kernel_size),int)
-        zoom_factor = 1
+        zoom_factor = 1 # set to 1
 
-        print("len x = ",len(x))
         for k in range(len(x)):
             kernel_row = int(round(center_shift+x[k]*zoom_factor))
             kernel_col = int(round(center_shift-y[k]*zoom_factor))
             if kernel_col<kernel_size and kernel_row<kernel_size:
                 kernel[kernel_col, kernel_row] = kernel[kernel_col, kernel_row] + 1
 
+        # Normalize the kernel to be average 1.
+        #kernel_sum = np.sum(kernel)
+        #kernel = np.divide(kernel,kernel_sum)
+
         if show == True:
-            #img = Image.fromarray(kernel)
-            #img.show()
             plt.imshow(kernel, cmap='gray')
             plt.show()
 
