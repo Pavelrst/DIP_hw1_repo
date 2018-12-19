@@ -201,7 +201,7 @@ class PSNR_calculator:
     def evaluate_PSNR(self):
         MSE = np.mean(np.power(np.abs(np.subtract(self.fixed,self.orig)),2))
         MAX = 255
-        return 10*np.log(np.power(MAX,2)/MSE)
+        return 20*np.log10(MAX)-10*np.log10(MSE)
 
 
 
